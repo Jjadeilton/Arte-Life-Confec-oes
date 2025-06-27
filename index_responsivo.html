@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arte Life Confecções</title>
+    <!-- Favicon -->
+    <link rel="icon" href="imagens/Arte life .png" />
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <style>
+      /* --- RESET --- */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background:  #978f84;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      /* --- LAYOUT --- */
+      header {
+        background: linear-gradient(135deg, #4a362f, #978f84);
+        color:#fff;
+        padding: 1rem 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+      }
+
+      header .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      nav ul {
+        display: flex;
+        gap: 1rem;
+        list-style: none;
+      }
+
+      nav li {
+        transition: opacity 0.3s;
+      }
+      nav li:hover {
+        opacity: 0.7;
+      }
+
+      .hero {
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 6rem 1rem 4rem;
+        background: url("https://images.unsplash.com/photo-1530925488968-250a3e04953b?auto=format&fit=crop&w=1400&q=80")
+          center/cover no-repeat fixed;
+        color: #fff;
+        position: relative;
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+      }
+      .hero > * {
+        position: relative;
+        z-index: 1;
+      }
+      .hero h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        margin-bottom: 1rem;
+      }
+
+      .btn-primary {
+        background: #ffb703;
+        color: #000;
+        padding: 0.75rem 1.5rem;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: transform 0.2s;
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+      }
+
+      section {
+        padding: 4rem 1rem;
+      }
+      .section-title {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        color: #fff;
+      }
+
+      /* Products */
+      .products-grid {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }
+      .product-card {
+        background: #4a362f;
+        color:#fff;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgb(250, 250, 250);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s;
+      }
+      .product-card:hover {
+        transform: translateY(-6px);
+      }
+      .product-card img {
+  width: 100%;
+  height: auto;
+        height: 200px;
+        object-fit: cover;
+      }
+      .product-info {
+        padding: 1rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .product-info h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+      .price {
+        font-weight: 600;
+        color: #fff;  
+        margin-bottom: 0.5rem;
+      }
+
+      .btn-add {
+        background: #978f84;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        align-self: flex-start;
+        transition: background 0.3s;
+      }
+      .btn-add:hover {
+        background: #46433f;
+      }
+
+      /* Gallery */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .gallery-grid img {
+  width: 100%;
+  height: auto;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        height: 250px;
+        object-fit: cover;
+        width: 100%;
+      }
+
+      /* Registration */
+      .registration {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+      .registration form {
+        display: grid;
+        gap: 1rem;
+      }
+      .registration label {
+        font-weight: 600;
+      }
+      .registration input {
+        padding: 0.75rem;
+        border: 1px solid #ccc;
+        border-radius: 12px;
+      }
+      .registration button {
+        background: #ffb703;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 30px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .registration button:hover {
+        background: #d89a02;
+      }
+
+      /* Cart */
+      .cart-toggle {
+        position: fixed;
+        right: 1rem;
+        bottom: 1.5rem;
+        background: #008793;
+        color: #fff;
+        border: none;
+        padding: 0.75rem 1rem;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      }
+
+      .cart-panel {
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 320px;
+        height: 100vh;
+        background: #ffffff;
+        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.08);
+        transform: translateX(100%);
+        transition: transform 0.3s;
+        display: flex;
+        flex-direction: column;
+      }
+      .cart-panel.open {
+        transform: translateX(0);
+      }
+      .cart-header {
+        padding: 1rem;
+        background: #004d7a;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .cart-items {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .cart-footer {
+        padding: 1rem;
+        border-top: 1px solid #eee;
+      }
+
+      footer {
+        background:  #4a362f;
+        color: #fff;
+        text-align: center;
+        padding: 1.5rem 1rem;
+      }
+
+       /* Fale Conosco */
+      .contact-grid {
+        max-width: 800px;
+        margin: 0 auto;
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        justify-items: center;
+      }
+
+      .contact-card {
+        background: #4a362f;
+        color: #fff;
+        text-align: center;
+        padding: 1.5rem;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        transition: transform 0.3s, background 0.3s;
+      }
+
+      .contact-card:hover {
+        transform: translateY(-5px);
+        background: #3a2a23;
+      }
+
+      .contact-card img {
+        width: 25px;
+        height: 25px;
+      }
+
+      .contact-card span {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+    
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f8f8;
+  padding: 0.75rem;
+  border-radius: 12px;
+  gap: 0.5rem;
+}
+
+.cart-item span {
+  flex: 1;
+}
+
+.qty-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.qty-btn {
+  background: #004d7a;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.qty-btn:hover {
+  background: #007bb6;
+}
+
+.clear-cart {
+  background: #c1121f;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.clear-cart:hover {
+  background: #9b0e19;
+}
+
+.cart-footer {
+  padding: 1rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+    @media (max-width: 768px) {
+      header .container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav ul {
+        position: absolute;
+        right: 1rem;
+        top: 4rem;
+        background: #4a362f;
+        flex-direction: column;
+        width: auto;
+        padding: 1rem;
+        display: none;
+      }
+
+      .hero {
+        padding: 4rem 1rem;
+      }
+
+      .registration {
+        width: 95%;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid img,
+      .product-card img {
+  width: 100%;
+  height: auto;
+        height: auto;
+        width: 100%;
+      }
+
+      .cart-panel {
+        width: 100%;
+      }
+
+      iframe {
+        width: 100% !important;
+      }
+    }
+    </style>
+    
+
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <h2>Arte Life Confecções</h2>
+        
+    <nav>
+      <button id="menuToggle" aria-label="Abrir menu" style="background:none;border:none;color:white;font-size:1.5rem;cursor:pointer;">☰</button>
+      <ul id="menuList" style="display:none; flex-direction: column; background:#4a362f; position: absolute; top: 60px; right: 20px; padding: 1rem; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
+        <li><a href="#home">Início</a></li>
+        <li><a href="#produtos">Produtos</a></li>
+        <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#cadastro">Cadastro</a></li>
+      </ul>
+    </nav>
+    
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <h1>Tapeçaria Premium para Parques, Residências e Indústria</h1>
+      <a href="#produtos" class="btn-primary">Quero conhecer</a>
+    </section>
+
+    <!-- Produtos -->
+    <section id="produtos">
+      <h2 class="section-title">Produtos em Destaque</h2>
+      <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <!-- Galeria -->
+    <section id="galeria">
+      <h2 class="section-title">Nosso Processo e Resultados</h2>
+      <div class="gallery-grid">
+        <img src="imagens/IMG_2207.JPG" alt="Confecção em andamento" />
+        <img src="imagens/IMG_2953.JPG" alt="Projeto finalizado" />
+        <img src="imagens/IMG_8340.PNG" alt="Detalhe em estofado" />
+        <img src="imagens/IMG_8489.JPG" alt="Checagem de qualidade" />
+      </div>
+    </section>
+
+    <!-- Cadastro -->
+    <section id="cadastro">
+      <h2 class="section-title">Orçamentos</h2>
+      <div class="registration">
+        <form id="registerForm">
+          <div>
+            <label for="name">Nome</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div>
+            <label for="phone">Telefo</label>
+            <input type="tel" id="phone" name="phone" required />
+          </div>
+          <div>
+            <label for="address">Ender</label>
+            <input type="text" id="address" name="address" required />
+          </div>
+
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Cart Panel -->
+    <button class="cart-toggle" id="cartToggle">🛒</button>
+    <div class="cart-panel" id="cartPanel">
+      <div class="cart-header">
+        <h3>Seu Carrinho</h3>
+        <button id="closeCart" aria-label="Fechar Carrinho" style="background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer">✕</button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-footer">
+<strong>Total: R$ <span id="cartTotal">0,00</span></strong>
+<button class="clear-cart" id="clearCart">Limpar</button>
+</div>
+    </div>
+
+    <!-- Fale Conosco -->
+<section id="contato">
+  <h2 class="section-title">Fale Conosco</h2>
+  <div class="contact-grid">
+    <a href="https://wa.me/5599999999999" target="_blank" class="contact-card whatsapp">
+      <img src="https://cdn-icons-png.flaticon.com/512/220/220236.png" alt="WhatsApp" />
+      <span>WhatsApp</span>
+    </a>
+    <a href="https://www.instagram.com/seu_instagram_aqui" target="_blank" class="contact-card instagram">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" />
+      <span>Instagram</span>
+    </a>
+    <a href="mailto:seuemail@exemplo.com" class="contact-card email">
+      <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Email" />
+      <span>Email</span>
+    </a>
+  </div>
+</section>
+
+  <!-- Mapa -->
+<section id="mapa">
+  <h2 class="section-title">Nosso Endereço</h2>
+  <div style="display:flex; justify-content:center;">
+    <iframe
+      src="https://www.google.com/maps?q=Rua+Rio+Formoso,+43,+Americana+-+SP&output=embed"
+      width="90%"
+      height="400"
+      style="border:0; border-radius:20px;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+    <footer>
+      <p>&copy; 2025 Arte Life Confecções. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+      /* --------------------------- Products --------------------------- */
+      const products = [
+        {
+          id: 1,
+          name: "Puff Quadrado Premium",
+          price: 80.0,
+          image: "https://acdn-us.mitiendanube.com/stores/002/286/779/products/mode-colorful-kreatif-sepatu-bangku-kantor-ruang-duduk-bangku-lembut-pu-kain-sofa-meja-kursi-bangku1111-8390253e95bead70f416611701553431-1024-1024.jpg",
+        },
+        {
+          id: 2,
+          name: "Almofada Decorativa Luxo",
+          price: 99.5,
+          image: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=600&q=60",
+        },
+        {
+          id: 3,
+          name: "Sofá Sob Medida (2m)",
+          price: 2599.0,
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaO2HHODBqycCddZKEEHRTpJATWdh7y3trTg&s",
+        },
+      ];
+
+      const productsGrid = document.getElementById("productsGrid");
+      products.forEach((product) => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+        card.innerHTML = `
+          <img src="${product.image}" alt="${product.name}" />
+          <div class="product-info">
+            <div>
+              <h3>${product.name}</h3>
+              <p class="price">R$ ${product.price.toFixed(2)}</p>
+            </div>
+            <button class="btn-add" data-id="${product.id}">Adicionar</button>
+          </div>
+        `;
+        productsGrid.appendChild(card);
+      });
+
+      /* --------------------------- Cart Logic --------------------------- */
+      let cart = [];
+
+      function addToCart(id) {
+        const item = products.find((p) => p.id === id);
+        const existing = cart.find((c) => c.id === id);
+        if (existing) {
+          existing.qty += 1;
+        } else {
+          cart.push({ ...item, qty: 1 });
+        }
+        renderCart();
+      }
+
+      function removeFromCart(id) {
+        cart = cart.filter((c) => c.id !== id);
+        renderCart();
+      }
+
+            /* --------------------------- Event Listeners --------------------------- */
+      document.addEventListener("click", (e) => {
+        if (e.target.matches(".btn-add")) {
+          const id = Number(e.target.dataset.id);
+          addToCart(id);
+        }
+        if (e.target.matches("[data-remove]")) {
+          const id = Number(e.target.dataset.remove);
+          removeFromCart(id);
+        }
+      });
+
+      const cartToggle = document.getElementById("cartToggle");
+      const cartPanel = document.getElementById("cartPanel");
+      const closeCart = document.getElementById("closeCart");
+
+      cartToggle.addEventListener("click", () => {
+        cartPanel.classList.add("open");
+      });
+      closeCart.addEventListener("click", () => {
+        cartPanel.classList.remove("open");
+      });
+
+      /* --------------------------- Registration --------------------------- */
+      const registerForm = document.getElementById("registerForm");
+      registerForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(registerForm);
+        const data = Object.fromEntries(formData.entries());
+        alert(`Obrigado pelo cadastro, ${data.name}! Em breve entraremos em contato.`);
+        registerForm.reset();
+      });
+    
+function renderCart() {
+  const cartItems = document.getElementById("cartItems");
+  const cartTotal = document.getElementById("cartTotal");
+  cartItems.innerHTML = "";
+  let total = 0;
+
+  if (cart.length === 0) {
+    cartItems.innerHTML = `<p>Seu carrinho está vazio 🛒</p>`;
+  }
+
+  cart.forEach((item) => {
+    const subtotal = item.price * item.qty;
+    total += subtotal;
+    const div = document.createElement("div");
+    div.className = "cart-item";
+    div.innerHTML = `
+      <span>${item.name}<br>R$ ${item.price.toFixed(2)} x ${item.qty} = <strong>R$ ${subtotal.toFixed(2)}</strong></span>
+      <div class="qty-controls">
+        <button class="qty-btn" data-decrease="${item.id}">-</button>
+        <button class="qty-btn" data-increase="${item.id}">+</button>
+        <button data-remove="${item.id}" style="background:none;border:none;font-size:1.2rem;cursor:pointer">🗑️</button>
+      </div>
+    `;
+    cartItems.appendChild(div);
+  });
+
+  cartTotal.textContent = total.toFixed(2);
+}
+
+document.addEventListener("click", (e) => {
+  if (e.target.matches(".btn-add")) {
+    const id = Number(e.target.dataset.id);
+    addToCart(id);
+    cartPanel.classList.add("open");
+  }
+  if (e.target.matches("[data-remove]")) {
+    const id = Number(e.target.dataset.remove);
+    removeFromCart(id);
+  }
+  if (e.target.matches("[data-increase]")) {
+    const id = Number(e.target.dataset.increase);
+    const item = cart.find((c) => c.id === id);
+    if (item) {
+      item.qty += 1;
+      renderCart();
+    }
+  }
+  if (e.target.matches("[data-decrease]")) {
+    const id = Number(e.target.dataset.decrease);
+    const item = cart.find((c) => c.id === id);
+    if (item) {
+      item.qty -= 1;
+      if (item.qty <= 0) {
+        removeFromCart(id);
+      } else {
+        renderCart();
+      }
+    }
+  }
+});
+
+document.getElementById("clearCart").addEventListener("click", () => {
+  cart = [];
+  renderCart();
+});
+
+
+    const menuToggle = document.getElementById("menuToggle");
+    const menuList = document.getElementById("menuList");
+    menuToggle.addEventListener("click", () => {
+      const visible = menuList.style.display === "flex";
+      menuList.style.display = visible ? "none" : "flex";
+    });
+    </script>
+    
+  </body>
+</html>
